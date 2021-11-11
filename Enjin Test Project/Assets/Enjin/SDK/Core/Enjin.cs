@@ -20,6 +20,7 @@ namespace Enjin.SDK.Core
         private static EnjinUsers _users;
         private static EnjinRequests _requests;
         private static EnjinPlatform _platform;
+        private static App _app;
 
         // Public properties
         public static string GraphQLURL { get; private set; }
@@ -311,12 +312,16 @@ namespace Enjin.SDK.Core
 
         public static App GetApp(int id)
         {
-            return _platform.GetAppByID(id);
+            if (_app != null) return _app;
+            _app = _platform.GetAppByID(id);
+            return _app;
         }
         
         public static App GetApp()
         {
-            return _platform.GetApp();
+            if (_app != null) return _app;
+            _app = _platform.GetApp();
+            return _app;
         }
 
         #endregion
