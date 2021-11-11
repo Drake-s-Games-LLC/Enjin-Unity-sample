@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Enjin.SDK.DataTypes;
+using UnityEngine.Events;
 
 namespace Enjin.SDK.Core
 {
@@ -21,48 +22,11 @@ namespace Enjin.SDK.Core
 
         private void Start()
         {
-            _enjinUIManager.RegisterAppLoginEvent(() => 
-            {
-                if (Enjin.LoginState == LoginState.VALID)
-                    return;
+            _enjinUIManager.RegisterAppLoginEvent(AppLogin);
 
-                if (_isConnecting)
-                    return;
+            _enjinUIManager.RegisterUserLoginEvent(UserLogin);
 
-                _isConnecting = true;
-                StartCoroutine(AppLoginRoutine());
-            });
-
-            _enjinUIManager.RegisterUserLoginEvent(() =>
-            {
-                if (Enjin.LoginState != LoginState.VALID)
-                    return;
-
-                _currentEnjinUser = Enjin.GetUser(_enjinUIManager.UserName);
-                _accessToken = Enjin.AccessToken;
-
-                Debug.Log($"[Logined User ID] {_currentEnjinUser.id}");
-                Debug.Log($"[Logined User name] {_currentEnjinUser.name}");
-
-                _enjinUIManager.UserName = _currentEnjinUser.name;
-                _enjinUIManager.AccessToken = _accessToken;
-                _enjinUIManager.DisableUserLoginUI();
-            });
-
-            _enjinUIManager.RegisterGetIdentityEvent(() =>
-            {
-                if (Enjin.LoginState != LoginState.VALID)
-                    return;
-
-                for (int i = 0; i < _currentEnjinUser.identities.Length; ++i)
-                {
-                    Debug.Log($"[{i} Identity ID] {_currentEnjinUser.identities[i].id}");
-                    Debug.Log($"[{i} Identity linking Code] {_currentEnjinUser.identities[i].linkingCode}");
-                    Debug.Log($"[{i} Identity Wallet :: Eth Address] {_currentEnjinUser.identities[i].wallet.ethAddress}");
-                }
-            });
-
-            // TO DO : BindEvent from pusher
+            _enjinUIManager.RegisterGetIdentityEvent(GetCurrentUserIdentities);
         }
 
         private IEnumerator AppLoginRoutine()
@@ -91,6 +55,47 @@ namespace Enjin.SDK.Core
             _isConnecting = false;
 
             yield return null;
+        }
+        
+        private void AppLogin()
+        {
+            if (Enjin.LoginState == LoginState.VALID)
+                return;
+
+            if (_isConnecting)
+                return;
+
+            _isConnecting = true;
+            StartCoroutine(AppLoginRoutine());
+        }
+
+        private void UserLogin()
+        {
+            if (Enjin.LoginState != LoginState.VALID)
+                return;
+
+            _currentEnjinUser = Enjin.GetUser(_enjinUIManager.UserName);
+            _accessToken = Enjin.AccessToken;
+
+            Debug.Log($"[Logined User ID] {_currentEnjinUser.id}");
+            Debug.Log($"[Logined User name] {_currentEnjinUser.name}");
+
+            _enjinUIManager.UserName = _currentEnjinUser.name;
+            _enjinUIManager.AccessToken = _accessToken;
+            _enjinUIManager.DisableUserLoginUI();
+        }
+
+        private void GetCurrentUserIdentities()
+        {
+            if (Enjin.LoginState != LoginState.VALID)
+                return;
+
+            for (int i = 0; i < _currentEnjinUser.identities.Length; ++i)
+            {
+                Debug.Log($"[{i} Identity ID] {_currentEnjinUser.identities[i].id}");
+                Debug.Log($"[{i} Identity linking Code] {_currentEnjinUser.identities[i].linkingCode}");
+                Debug.Log($"[{i} Identity Wallet :: Eth Address] {_currentEnjinUser.identities[i].wallet.ethAddress}");
+            }
         }
     }
 }
