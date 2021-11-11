@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Enjin.SDK.DataTypes;
 using UnityEngine.Events;
+using UnityEngine.Networking;
 
 namespace Enjin.SDK.Core
 {
@@ -43,6 +44,7 @@ namespace Enjin.SDK.Core
                     Debug.Log("App auth success");
                     _enjinUIManager.EnjinAppId = Enjin.AppID;
                     _enjinUIManager.AppName = Enjin.GetApp().name;
+                    StartCoroutine(DownloadAppImage(Enjin.GetApp().image));
                     _enjinUIManager.DisableAppLoginUI();
                     _enjinUIManager.EnableUserLoginUI();
                     yield break;
@@ -98,6 +100,21 @@ namespace Enjin.SDK.Core
                 Debug.Log($"[{i} Identity Wallet :: Eth Address] {_currentEnjinUser.identities[i].wallet.ethAddress}");
             }
         }
+        
+        IEnumerator DownloadAppImage(string MediaUrl)
+        {   
+            UnityWebRequest request = UnityWebRequestTexture.GetTexture(MediaUrl);
+            yield return request.SendWebRequest();
+            if(request.isNetworkError || request.isHttpError) 
+                Debug.Log(request.error);
+            else
+            {
+                Texture2D texture = ((DownloadHandlerTexture) request.downloadHandler).texture;
+                Rect rec = new Rect(0, 0, texture.width, texture.height);
+                Sprite spriteToUse = Sprite.Create(texture,rec,new Vector2(0.5f,0.5f),100);
+                _enjinUIManager.AppImage = spriteToUse;
+            }
+        } 
     }
 }
 

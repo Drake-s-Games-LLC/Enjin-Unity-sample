@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Enjin.SDK.Core;
+using UnityEngine.Networking;
 
 public class EnjinUIManager : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class EnjinUIManager : MonoBehaviour
     [SerializeField] Text _loggedInUserName;
     [SerializeField] Text _accessToken;
     [SerializeField] private Text _appName;
+
+    [SerializeField] private Image _appImage;
     
     #region Public API
     public int EnjinAppId
@@ -59,6 +62,11 @@ public class EnjinUIManager : MonoBehaviour
     public string AppName
     {
         set => _appName.text = value;
+    }
+    
+    public Sprite AppImage
+    {
+        set => _appImage.sprite = value;
     }
 
     #endregion
@@ -98,4 +106,6 @@ public class EnjinUIManager : MonoBehaviour
         _identityCanvas.enabled = true;
     }
     #endregion
+    
+
 }
