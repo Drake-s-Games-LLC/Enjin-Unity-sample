@@ -42,6 +42,7 @@ namespace Enjin.SDK.Core
                 {
                     Debug.Log("App auth success");
                     _enjinUIManager.EnjinAppId = Enjin.AppID;
+                    _enjinUIManager.AppName = Enjin.GetApp().name;
                     _enjinUIManager.DisableAppLoginUI();
                     _enjinUIManager.EnableUserLoginUI();
                     yield break;

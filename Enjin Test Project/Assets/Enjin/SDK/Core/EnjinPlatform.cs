@@ -193,6 +193,26 @@ namespace Enjin.SDK.Core
 
             return appData;
         }
+        
+        /// <summary>
+        /// For getting the App information after logging in (No AppID param needed)
+        /// </summary>
+        /// <returns></returns>
+        public App GetApp()
+        {
+            GraphQuery.POST(string.Format(Enjin.PlatformTemplate.GetQuery["GetApp"]));
+
+            var resultGQL = JSON.Parse(GraphQuery.queryReturn);
+            App appData = new App()
+            {
+                id = resultGQL["data"]["result"][0]["id"].AsInt,
+                name = resultGQL["data"]["result"][0]["name"].Value,
+                description = resultGQL["data"]["result"][0]["description"].Value,
+                image = resultGQL["data"]["result"][0]["image"].Value
+            };
+
+            return appData;
+        }
 
         /// <summary>
         /// Updates App information

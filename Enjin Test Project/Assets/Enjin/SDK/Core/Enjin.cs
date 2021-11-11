@@ -313,6 +313,11 @@ namespace Enjin.SDK.Core
         {
             return _platform.GetAppByID(id);
         }
+        
+        public static App GetApp()
+        {
+            return _platform.GetApp();
+        }
 
         #endregion
 

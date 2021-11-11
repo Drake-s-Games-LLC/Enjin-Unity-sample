@@ -25,7 +25,9 @@ public class EnjinUIManager : MonoBehaviour
     [SerializeField] Text _loggedInAppId;
     [SerializeField] Text _loggedInUserName;
     [SerializeField] Text _accessToken;
-
+    [SerializeField] private Text _appName;
+    
+    #region Public API
     public int EnjinAppId
     {
         get { return System.Convert.ToInt32(_appIdInputField.text); }
@@ -54,6 +56,14 @@ public class EnjinUIManager : MonoBehaviour
         set { _accessToken.text = value; }
     }
 
+    public string AppName
+    {
+        set => _appName.text = value;
+    }
+
+    #endregion
+    
+    #region Listener Registration
     public void RegisterAppLoginEvent(UnityAction action)
     {
         _loginAppButton.onClick.AddListener(action);
@@ -68,7 +78,9 @@ public class EnjinUIManager : MonoBehaviour
     {
         _queryIdentityButton.onClick.AddListener(action);
     }
-
+    #endregion
+    
+    #region UI Panel Control
     public void EnableUserLoginUI()
     {
         _loginUserCanvas.enabled = true;
@@ -85,4 +97,5 @@ public class EnjinUIManager : MonoBehaviour
         _loginUserCanvas.enabled = false;
         _identityCanvas.enabled = true;
     }
+    #endregion
 }
