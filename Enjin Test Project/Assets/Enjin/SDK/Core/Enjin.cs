@@ -6,6 +6,7 @@ using Enjin.SDK.GraphQL;
 using Enjin.SDK.Template;
 using Enjin.SDK.Utility;
 using SimpleJSON;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -185,7 +186,7 @@ namespace Enjin.SDK.Core
         {
             StartUp();
             SetupAPI(baseApiUrl);
-
+            
             if (!String.IsNullOrEmpty(accessToken))
             {
                 LoginState = LoginState.VALID;
@@ -257,9 +258,9 @@ namespace Enjin.SDK.Core
             return _identities.Delete(id);
         }
 
-        public static Identity GetIdentity(int id)
+        public static Identity GetIdentity(int id, int levels = 1)
         {
-            return _identities.Get(id);
+            return _identities.Get(id, levels);
         }
         
         public static Identity CreateIdentity(Identity newIdentity)

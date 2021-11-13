@@ -3,25 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using Enjin.SDK.Core;
+using Enjin.SDK.DataTypes;
 using UnityEngine.Networking;
 
 public class EnjinUIManager : MonoBehaviour
 {
     [SerializeField] PlatformSelector _platformSelector;
 
-    [SerializeField] Canvas _loginAppCanvas;
+    [SerializeField] GameObject[] _appLoginObjects;
     [SerializeField] Button _loginAppButton;
     [SerializeField] InputField _appIdInputField;
     [SerializeField] InputField _appSecretInputField;
     
-    [SerializeField] Canvas _loginUserCanvas;
+    [SerializeField] Canvas _userInfoCanvas;
+    [SerializeField] private GameObject _userLoginUI;
+    [SerializeField] private GameObject _userWalletLinkCodesPanel;
+    [SerializeField] private Text _walletLinkCodeText;
     [SerializeField] Button _loginUserButton;
     [SerializeField] InputField _userName;
-
-    [SerializeField] Canvas _identityCanvas;
-    [SerializeField] Button _queryIdentityButton;
-    [SerializeField] Text _identityText;
+    [SerializeField] InputField _userToken;
 
     [SerializeField] Text _loggedInAppId;
     [SerializeField] Text _loggedInUserName;
@@ -29,8 +29,20 @@ public class EnjinUIManager : MonoBehaviour
     [SerializeField] private Text _appName;
 
     [SerializeField] private Image _appImage;
-    
-    #region Public API
+    [SerializeField] private Image _qrCode;
+
+    [SerializeField] private Button _refreshUserInfoButton;
+
+    [SerializeField] private GameObject _linkedUserInfoUI;
+    [SerializeField] private Text _ethAdressText;
+    [SerializeField] private Text _ethBalanceText;
+    [SerializeField] private Text _enjBalanceText;
+
+    [SerializeField] private InputField _sendDestinationAddress;
+    [SerializeField] private Dropdown _sendCCYDropdown;
+    [SerializeField] private Button _sendCCYButton;
+
+    #region Public Accessors
     public int EnjinAppId
     {
         get { return System.Convert.ToInt32(_appIdInputField.text); }
@@ -52,6 +64,11 @@ public class EnjinUIManager : MonoBehaviour
         get { return _userName.text; }
         set { _loggedInUserName.text = value; }
     }
+    
+    public string UserToken
+    {
+        get { return _userToken.text; }
+    }
 
     public string AccessToken
     {
@@ -63,14 +80,60 @@ public class EnjinUIManager : MonoBehaviour
     {
         set => _appName.text = value;
     }
-    
-    public Sprite AppImage
+
+    public string SendDestinationAddress => _sendDestinationAddress.text;
+    public string SelectedSendCCY => _sendCCYDropdown.options[_sendCCYDropdown.value].text;
+
+    public void SetAppImage(string MediaUrl)
     {
-        set => _appImage.sprite = value;
+        StartCoroutine(DownloadAppImage(MediaUrl));
+    }
+    
+    #endregion
+    
+    #region UI Panel Control
+    public void UpdateUserUIInfo(User enjinUser)
+    {
+        if (enjinUser == null)
+        {
+            Debug.LogError("No Current User");
+            return;
+        }
+
+        _loggedInUserName.text = enjinUser.name;
+
+        for (int i = 0; i < enjinUser.identities.Length; ++i)
+        {
+            Debug.Log($"[{i} Identity ID] {enjinUser.identities[i].id}");
+            Debug.Log($"[{i} Identity Wallet :: Eth Address] {enjinUser.identities[i].wallet.ethAddress}");
+            if (enjinUser.identities[i].wallet.ethAddress == "")
+            {
+                _userWalletLinkCodesPanel.SetActive(true);
+                _walletLinkCodeText.text = enjinUser.identities[i].linkingCode;
+                StartCoroutine(DownloadQRImage(enjinUser.identities[i].linkingCodeQr));
+            }
+            else
+            {
+                _ethAdressText.text = enjinUser.identities[i].wallet.ethAddress;
+                _ethBalanceText.text = enjinUser.identities[i].wallet.ethBalance.ToString("F9");
+                _enjBalanceText.text = enjinUser.identities[i].wallet.enjBalance.ToString("F9");
+                _userWalletLinkCodesPanel.SetActive(false);
+                _linkedUserInfoUI.SetActive(true);
+            }
+        }
+    }
+    public void ShowUserInfoUI(bool shouldEnable = true)
+    {
+        _userInfoCanvas.enabled = shouldEnable;
+    }
+
+    public void ShowUserLoginUI(bool shouldEnable = true)
+    {
+        _userLoginUI.gameObject.SetActive(shouldEnable);
     }
 
     #endregion
-    
+        
     #region Listener Registration
     public void RegisterAppLoginEvent(UnityAction action)
     {
@@ -82,30 +145,51 @@ public class EnjinUIManager : MonoBehaviour
         _loginUserButton.onClick.AddListener(action);
     }
 
-    public void RegisterGetIdentityEvent(UnityAction action)
+    public void RegisterRefreshUserInfoEvent(UnityAction action)
     {
-        _queryIdentityButton.onClick.AddListener(action);
-    }
-    #endregion
-    
-    #region UI Panel Control
-    public void EnableUserLoginUI()
-    {
-        _loginUserCanvas.enabled = true;
+        _refreshUserInfoButton.onClick.AddListener(action);
     }
 
-    public void DisableAppLoginUI()
+    public void RegisterSendCCYInfoEvent(UnityAction action)
     {
-        _loginAppCanvas.enabled = false;
-        _platformSelector.DisableInteractable();
+        _sendCCYButton.onClick.AddListener(action);
     }
 
-    public void DisableUserLoginUI()
-    {
-        _loginUserCanvas.enabled = false;
-        _identityCanvas.enabled = true;
-    }
     #endregion
+
+    #region Utility
+    IEnumerator DownloadAppImage(string MediaUrl)
+    {   
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(MediaUrl);
+        yield return request.SendWebRequest();
+        if(request.isNetworkError || request.isHttpError) 
+            Debug.Log(request.error);
+        else
+        {
+            Texture2D texture = ((DownloadHandlerTexture) request.downloadHandler).texture;
+            Rect rec = new Rect(0, 0, texture.width, texture.height);
+            Sprite spriteToUse = Sprite.Create(texture,rec,new Vector2(0.5f,0.5f),100);
+            _appImage.sprite = spriteToUse;
+        }
+    }
     
+    IEnumerator DownloadQRImage(string MediaUrl)
+    {   
+        Debug.Log("Sending Request for QR Code");
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(MediaUrl);
+        yield return request.SendWebRequest();
+        if(request.isNetworkError || request.isHttpError) 
+            Debug.Log(request.error);
+        else
+        {
+            Debug.Log("QR Code Found");
+            Texture2D texture = ((DownloadHandlerTexture) request.downloadHandler).texture;
+            Rect rec = new Rect(0, 0, texture.width, texture.height);
+            Sprite spriteToUse = Sprite.Create(texture,rec,new Vector2(0.5f,0.5f),100);
+            _qrCode.sprite = spriteToUse;
+        }
+    }
+    
+    #endregion
 
 }
