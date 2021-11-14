@@ -6,6 +6,7 @@ using Enjin.SDK.DataTypes;
 using UnityEngine.Events;
 using UnityEngine.Networking;
 using Enjin.SDK;
+using Sirenix.OdinInspector;
 
 namespace Enjin.SDK.Core
 {
@@ -28,39 +29,9 @@ namespace Enjin.SDK.Core
             _enjinUIManager.RegisterAppLoginEvent(AppLogin);
             _enjinUIManager.RegisterUserLoginEvent(UserLogin);
             _enjinUIManager.RegisterRefreshUserInfoEvent(RefreshCurrentUserInfo);
-            _enjinUIManager.RegisterSendCCYInfoEvent(SendCCY);
+            _enjinUIManager.RegisterSendCCYInfoEvent(SendEnj);
         }
 
-        private IEnumerator AppLoginRoutine()
-        {
-            Enjin.StartPlatform(_enjinUIManager.EnjinPlatformURL,
-                _enjinUIManager.EnjinAppId, _enjinUIManager.EnjinAppSecret);
-
-            int tick = 0;
-            YieldInstruction waitASecond = new WaitForSeconds(1f);
-            while (tick < 10)
-            {
-                if (Enjin.LoginState == LoginState.VALID)
-                {
-                    Debug.Log("App auth success");
-                    _enjinUIManager.EnjinAppId = Enjin.AppID;
-                    _enjinUIManager.AppName = Enjin.GetApp().name;
-                    _enjinUIManager.SetAppImage(Enjin.GetApp().image);
-                    _enjinUIManager.ShowUserInfoUI();
-                    _enjinUIManager.ShowUserLoginUI();
-                    yield break;
-                }
-
-                tick++;
-                yield return waitASecond;
-            }
-
-            Debug.Log("App auth Failed");
-            _isConnecting = false;
-
-            yield return null;
-        }
-        
         private void AppLogin()
         {
             if (Enjin.LoginState == LoginState.VALID)
@@ -72,7 +43,34 @@ namespace Enjin.SDK.Core
             _isConnecting = true;
             StartCoroutine(AppLoginRoutine());
         }
+        
+        private IEnumerator AppLoginRoutine()
+        {
+            Enjin.StartPlatform(_enjinUIManager.EnjinPlatformURL,
+                _enjinUIManager.EnjinAppId, _enjinUIManager.EnjinAppSecret);
 
+            int tick = 0;
+            YieldInstruction waitASecond = new WaitForSeconds(1f);
+            while (tick < 10)
+            {
+                if (Enjin.LoginState == LoginState.VALID)
+                {
+                    _enjinUIManager.EnjinAppId = Enjin.AppID;
+                    _enjinUIManager.AppName = Enjin.GetApp().name;
+                    _enjinUIManager.SetAppImage(Enjin.GetApp().image);
+                    _enjinUIManager.ShowUserInfoUI();
+                    _enjinUIManager.ShowUserLoginUI();
+                    yield break;
+                }
+
+                tick++;
+                yield return waitASecond;
+            }
+            
+            _isConnecting = false;
+            yield return null;
+        }
+        
         private void UserLogin()
         {
             if (Enjin.LoginState != LoginState.VALID)
@@ -107,17 +105,36 @@ namespace Enjin.SDK.Core
             _enjinUIManager.UpdateUserUIInfo(_currentEnjinUser);
         }
 
-        private void SendCCY()
+        private void SendEnj()
         {
-            Debug.Log("Sending CCY: " + _enjinUIManager.SelectedSendCCY);
-            Debug.Log("Destination: " + _enjinUIManager.SendDestinationAddress);
-            Enjin.SendENJRequest(18571,
-                "0x558029f12B72725476CBD1407Aaf3568956F5f1f",
-                3,
-                (re) => { Debug.Log("Request Callback Activated. ID: " + re.request_id); },
+            if (_currentEnjinUser == null)
+            {
+                Debug.LogError("Send Failed: No User Logged In");
+                return;
+            }
+            if (_currentEnjinUser.identities[0].wallet.ethAddress == "")
+            {
+                Debug.LogError("Send Failed: No linked Wallet");
+                return;
+            }
+
+            Enjin.SendEnjRequest(_currentEnjinUser.identities[0].id,
+                _enjinUIManager.SendDestinationAddress,
+                _enjinUIManager.SendEnjAmount,
+                RequestCallback,
                 false
             );
         }
+
+        private void RequestCallback(RequestEvent requestEvent)
+        {
+            Debug.Log($"[Request Callback Activated]\n" +
+                      $"ID: {requestEvent.request_id}\n" +
+                      $"EventType: {requestEvent.event_type}\n" +
+                      $"Data: {requestEvent.data}");
+        }
+
+        
     }
 }
 

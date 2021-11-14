@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ using UnityEngine.Networking;
 
 public class EnjinUIManager : MonoBehaviour
 {
+    #region Fields
     [SerializeField] PlatformSelector _platformSelector;
 
     [SerializeField] GameObject[] _appLoginObjects;
@@ -39,8 +41,17 @@ public class EnjinUIManager : MonoBehaviour
     [SerializeField] private Text _enjBalanceText;
 
     [SerializeField] private InputField _sendDestinationAddress;
-    [SerializeField] private Dropdown _sendCCYDropdown;
+    [SerializeField] private InputField _sendEnjAmount;
     [SerializeField] private Button _sendCCYButton;
+    
+    #endregion
+
+    private void Awake()
+    {
+        _sendDestinationAddress.onEndEdit.AddListener((ctx) => CheckEnableSendButton());
+        _sendEnjAmount.onEndEdit.AddListener((ctx) => CheckEnableSendButton());
+        CheckEnableSendButton();
+    }
 
     #region Public Accessors
     public int EnjinAppId
@@ -82,7 +93,7 @@ public class EnjinUIManager : MonoBehaviour
     }
 
     public string SendDestinationAddress => _sendDestinationAddress.text;
-    public string SelectedSendCCY => _sendCCYDropdown.options[_sendCCYDropdown.value].text;
+    public int SendEnjAmount => System.Convert.ToInt32(_sendEnjAmount.text);
 
     public void SetAppImage(string MediaUrl)
     {
@@ -208,8 +219,20 @@ public class EnjinUIManager : MonoBehaviour
         _loginUserButton.onClick.Invoke();
         yield return new WaitForSeconds(0.5f);
         _refreshUserInfoButton.onClick.Invoke();
-        yield return new WaitForSeconds(0.5f);
-        _sendCCYButton.onClick.Invoke();
+        // yield return new WaitForSeconds(0.5f);
+        // _sendCCYButton.onClick.Invoke();
+    }
+
+    private void CheckEnableSendButton()
+    {
+        if (_sendEnjAmount.text == "" || _sendDestinationAddress.text == "")
+        {
+            _sendCCYButton.interactable = false;
+        }
+        else
+        {
+            _sendCCYButton.interactable = true;
+        }
     }
 
     #endregion

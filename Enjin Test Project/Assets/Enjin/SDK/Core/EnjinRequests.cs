@@ -1,8 +1,13 @@
-﻿using Enjin.SDK.GraphQL;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Enjin.SDK.GraphQL;
 using Enjin.SDK.Utility;
+using Nethereum.Util;
 using SimpleJSON;
 using UnityEngine;
 using UnityEngine.Networking.Types;
+using Nethereum.Util.Keccak;
 
 namespace Enjin.SDK.Core
 {
@@ -148,21 +153,16 @@ namespace Enjin.SDK.Core
             return request;
         }
 
-        // Note:  Seems like I can send TO wallet address or identity id of the receiver.  Should see what is easier to work with
-        public Request SendENJ(int identityID, string toAddress, int sendAmountWei, 
+        public Request SendENJ(int identityID, string toAddress, int sendAmount, 
             System.Action<string> handler, bool async = false)
         {
             _query =
-                @"mutation sendENJ{CreateEnjinRequest(appId:$appId^,type:SEND_ENJ,identityId:$identityId^,send_token_data:{recipient_address:$recipient_address^, token_id:$token_id^, ";
-            // _query =
-            //     @"mutation sendENJ{CreateEnjinRequest(appId:$appId^,type:SEND_ENJ,identityId:$identityId^,send_enj_data:{to:$toAddress^, token_id: ""$token_id^"", ";
+                @"mutation sendENJ{CreateEnjinRequest(appId:$appId^,type:SEND_ENJ,identityId:$identityId^,send_enj_data:{to:""$toAddress^"", value:""$value^""}){id,encodedData,state}}";
             
-            _query += "value:$value^}){id,encodedData,state}}";
             GraphQuery.variable["appId"] = Enjin.AppID.ToString();
             GraphQuery.variable["identityId"] = identityID.ToString();
-            // GraphQuery.variable["toAddress"] = toAddress;
-            GraphQuery.variable["recipient_address"] = toAddress;
-            GraphQuery.variable["value"] = sendAmountWei.ToString() + "00000000000000000";
+            GraphQuery.variable["toAddress"] = toAddress;
+            GraphQuery.variable["value"] = UnitConversion.Convert.ToWei(sendAmount).ToString();
             GraphQuery.variable["token_id"] = "0";
             GraphQuery.POST(_query, "", async, (queryReturn) => { handler?.Invoke(queryReturn); });
 
@@ -174,25 +174,44 @@ namespace Enjin.SDK.Core
             return null;
         }
         
-        public Request SendENJ2(int identityID, string toAddress, int sendAmountWei, 
-            System.Action<string> handler, bool async = false)
+        public Request TestSecureQuery(string userName, System.Action<string> handler, bool async = false)
         {
-            _query =
-                @"mutation sendENJ{CreateEnjinRequest(appId:$appId^,type:SEND_ENJ,identityId:$identityId^,send_enj_data:{to:$toAddress^, value:$value^}){id,encodedData,state}}";
             
-            GraphQuery.variable["appId"] = Enjin.AppID.ToString();
-            GraphQuery.variable["identityId"] = identityID.ToString();
-            GraphQuery.variable["toAddress"] = toAddress;
-            GraphQuery.variable["value"] = sendAmountWei.ToString();
-            GraphQuery.variable["token_id"] = "0";
-            GraphQuery.POST(_query, "", async, (queryReturn) => { handler?.Invoke(queryReturn); });
+            string _query = @"query getEnjinUserInfo($userName: String!){EnjinUser(name: $userName){name,id}}";
+            //string variables = @"""userName"": """ + userName + @"""";
+            // QueryHelperClass helperClass = new QueryHelperClass(_query, variables);
+            SDictionaryStringString vars = new SDictionaryStringString();
+            vars.Add("userName", userName);
 
+            string jsonData = "";
+            
+            DrakeQuery query = new DrakeQuery {query = _query, variables = vars};
+            
+            jsonData = JsonUtility.ToJson(query);
+            
+            Debug.Log("JSON DATA: " + jsonData.ToString());
+            
+            //GraphQuery.POSTSecure(helperClass.FullQuery, "", async, (queryReturn) => { handler?.Invoke(queryReturn); });
+            
+            
             if (GraphQuery.queryStatus == GraphQuery.Status.Complete)
             {
                 return JsonUtility.FromJson<Request>(EnjinHelpers.GetJSONString(GraphQuery.queryReturn, 2));
             }
 
             return null;
+        }
+
+        [Serializable]
+        public class DrakeQuery
+        {
+            public string query;
+            public SDictionaryStringString variables;
+        }
+
+        [Serializable]
+        public class SDictionaryStringString : SerializableDictionary<string, string>
+        {
         }
 
         /// <summary>

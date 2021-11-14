@@ -396,15 +396,16 @@ namespace Enjin.SDK.Core
             return _requests.Get(requestID);
         }
 
-        public static Request SendENJRequest(int identityID, string toAddress, int sendAmountWei, 
+        public static Request TestSecurePost()
+        {
+            Request request = _requests.TestSecureQuery("drakeDev7896", null, false);
+            return request;
+        }
+
+        public static Request SendEnjRequest(int identityID, string toAddress, int sendAmount, 
             System.Action<RequestEvent> callback, bool async = false)
         {
-            Request request = _requests.SendENJ2(identityID, toAddress, sendAmountWei, null, false);
-            // CryptoItem temp = new CryptoItem();
-            // temp.nonFungible = false;
-            // temp.id = "0";
-            // Request request = _requests.SendItem(identityID, temp, 12345, sendAmountWei, null, false);
-            // RequestCallbacks.Add(request.id, callback);
+            Request request = _requests.SendENJ(identityID, toAddress, sendAmount, null, false);
             return request;
         }
         

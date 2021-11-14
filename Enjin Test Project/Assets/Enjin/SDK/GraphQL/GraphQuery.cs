@@ -72,6 +72,61 @@ namespace Enjin.SDK.GraphQL
             POST(details, "", async, null);
         }
 
+        public static void POSTSecure(string details, string token, bool async, System.Action<string> handler)
+        {
+            //Between Here
+            details = details.Trim('\r');
+            string jsonData = "";
+            Query query = new Query {query = details};
+            jsonData = JsonUtility.ToJson(query);
+
+            // And Here
+            if (Enjin.SDK.Core.Enjin.IsDebugLogActive)
+            {
+                if (!jsonData.Contains("password:") && !jsonData.Contains("accessTokens:"))
+                    Debug.Log("<color=orange>[GRAPHQL QUERY]</color> " + jsonData);
+            }
+
+            UnityWebRequest request = UnityWebRequest.Post(Enjin.SDK.Core.Enjin.GraphQLURL, UnityWebRequest.kHttpVerbPOST);
+            request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(jsonData)) as UploadHandler;
+            //request.SetRequestHeader("Content-Type", "application/json; charset=utf-8");
+            
+            if (token != "login")
+                request.SetRequestHeader("Authorization", "Bearer " + Enjin.SDK.Core.Enjin.AccessToken);
+            
+            request.downloadHandler = new DownloadHandlerBuffer();
+            
+            if (request.error != null)
+            {
+                Enjin.SDK.Core.Enjin.IsRequestValid(request.responseCode, request.downloadHandler.text);
+            }
+            else
+            {
+                if (async)
+                {
+                    instance.StartCoroutine(WaitForRequest(request, handler));
+                    queryStatus = Status.Loading;
+                }
+                else if (!async)
+                {
+                    request.SendWebRequest();
+                    while (!request.isDone)
+                    {
+                    }
+
+                    if (Enjin.SDK.Core.Enjin.IsRequestValid(request.responseCode, request.downloadHandler.text))
+                    {
+                        queryStatus = Status.Complete;
+                        queryReturn = request.downloadHandler.text;
+                    }
+                }
+            }
+
+            if (Enjin.SDK.Core.Enjin.IsDebugLogActive && queryReturn != null)
+                Debug.Log("<color=orange>[GRAPHQL RESULTS]</color> " + queryReturn.ToString());
+            
+        }
+
         public static void POST(string details, string token, bool async, System.Action<string> handler)
         {
             details = details.Trim('\r');
@@ -80,7 +135,6 @@ namespace Enjin.SDK.GraphQL
 
             Query query = new Query {query = details};
             jsonData = JsonUtility.ToJson(query);
-            Debug.Log("FINAL QUERY JSON: " + jsonData.ToString());
 
             if (Enjin.SDK.Core.Enjin.IsDebugLogActive)
             {
@@ -156,6 +210,11 @@ namespace Enjin.SDK.GraphQL
             }
         }
 
+        /// <summary>
+        /// Shoves variable values into your query
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
         public static string QuerySorter(string query)
         {
             string finalString;

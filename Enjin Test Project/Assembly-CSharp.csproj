@@ -64,6 +64,7 @@
      <Compile Include="Assets\Enjin\SDK\PusherClient\ErrorCodes.cs" />
      <Compile Include="Assets\PlatformSelector.cs" />
      <Compile Include="Assets\Enjin\SDK\Core\EnjinEventManager.cs" />
+     <Compile Include="Assets\Scripts\DrakesGames\DevUtilities.cs" />
      <Compile Include="Assets\Enjin\SDK\GraphQL\GraphQuery.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\PresenceChannel.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\ConnectionState.cs" />
@@ -71,6 +72,7 @@
      <Compile Include="Assets\Enjin\SDK\PusherClient\IAuthorizer.cs" />
      <Compile Include="Assets\Enjin\SDK\DataTypes\EnjinInterfaces.cs" />
      <Compile Include="Assets\Enjin\SDK\Utility\EnjinHelpers.cs" />
+     <Compile Include="Assets\Scripts\DrakesGames\ConfigFileUtility\EnjinConfigData.cs" />
      <Compile Include="Assets\Enjin\SDK\Core\EnjinCryptoItems.cs" />
      <Compile Include="Assets\Scripts\DrakesGames\UIUtility\UIPanelStateController.cs" />
      <Compile Include="Assets\Enjin\SDK\Core\EnjinRequests.cs" />
@@ -86,14 +88,13 @@
      <Compile Include="Assets\EnjinManager.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\Helper\JsonHelper.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\ChannelTypes.cs" />
+     <Compile Include="Assets\Scripts\DrakesGames\ConfigFileUtility\ConfigJSONReader.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\HttpAuthorizer.cs" />
      <Compile Include="Assets\Enjin\Plugins\SimpleJSON\SimpleJSON.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\PusherException.cs" />
      <Compile Include="Assets\EnjinWallet.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\Channel.cs" />
-     <Compile Include="Assets\Scripts\DrakesGames\ConfigFileUtility\ConfigJSONReader.cs" />
-     <Compile Include="Assets\Scripts\DrakesGames\ConfigFileUtility\EnjinConfigData.cs" />
-     <Compile Include="Assets\Scripts\DrakesGames\DevUtilities.cs" />
+     <Compile Include="Assets\Scripts\DrakesGames\SerializationUtility\SerializableDictionary.cs" />
      <None Include="Assets\Enjin\Resources\Templates\IdentityTemplate.txt" />
      <None Include="Assets\Enjin\Resources\Templates\UserTemplate.txt" />
      <None Include="Assets\Enjin\Third-Party Notices.txt" />
@@ -322,29 +323,404 @@
  <Reference Include="UnityEditor.UnityConnectModule">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.22f1/Editor/Data/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
  </Reference>
- <Reference Include="websocket-sharp">
- <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Enjin/Plugins/websocket-sharp.dll</HintPath>
+ <Reference Include="System.AppContext">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.AppContext.dll</HintPath>
  </Reference>
- <Reference Include="Sirenix.OdinInspector.Editor">
- <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Editor.dll</HintPath>
+ <Reference Include="Microsoft.Win32.Primitives">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Microsoft.Win32.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.SecureString">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Security.SecureString.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Globalization">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Globalization.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Reflection">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Reflection.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.CompilerServices.VisualC">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Runtime.CompilerServices.VisualC.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Threading.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Requests">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Net.Requests.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.BlockchainProcessing">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.BlockchainProcessing.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization.Primitives">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Runtime.Serialization.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Text.RegularExpressions">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Text.RegularExpressions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Dynamic.Runtime">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Dynamic.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.FileSystem.Primitives">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.IO.FileSystem.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.Debug">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Diagnostics.Debug.dll</HintPath>
  </Reference>
  <Reference Include="Sirenix.OdinInspector.Attributes">
  <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Attributes.dll</HintPath>
  </Reference>
+ <Reference Include="Nethereum.Contracts">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.Contracts.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Numerics">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Runtime.Numerics.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ValueTuple">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.ValueTuple.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.Tasks">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Threading.Tasks.dll</HintPath>
+ </Reference>
  <Reference Include="Sirenix.Serialization.Config">
  <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Sirenix/Assemblies/Sirenix.Serialization.Config.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.Besu">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.Besu.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.Overlapped">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Threading.Overlapped.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.FileVersionInfo">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Diagnostics.FileVersionInfo.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.IsolatedStorage">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.IO.IsolatedStorage.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.JsonRpc.WebSocketClient">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.JsonRpc.WebSocketClient.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.CompilerServices.Unsafe">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.StackTrace">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Diagnostics.StackTrace.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.XmlSerializer">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Xml.XmlSerializer.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.IO.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Handles">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Runtime.Handles.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.TraceSource">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Diagnostics.TraceSource.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Ping">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Net.Ping.dll</HintPath>
+ </Reference>
+ <Reference Include="Sirenix.Utilities.Editor">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.KeyStore">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.KeyStore.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Claims">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Security.Claims.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Drawing.Primitives">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Drawing.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Collections.Specialized">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Collections.Specialized.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.Parity">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.Parity.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ObjectModel">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.ObjectModel.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Text.Encoding.Extensions">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Text.Encoding.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.RPC.Reactive">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.RPC.Reactive.dll</HintPath>
+ </Reference>
+ <Reference Include="BouncyCastle.Crypto">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/BouncyCastle.Crypto.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.FileSystem">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.IO.FileSystem.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.Pipes">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.IO.Pipes.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Principal">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Security.Principal.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.Hex">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.Hex.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.FileSystem.Watcher">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.IO.FileSystem.Watcher.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ComponentModel.EventBasedAsync">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.ComponentModel.EventBasedAsync.dll</HintPath>
  </Reference>
  <Reference Include="Sirenix.Utilities">
  <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.dll</HintPath>
  </Reference>
- <Reference Include="Newtonsoft.Json">
- <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll</HintPath>
+ <Reference Include="Nethereum.Util">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.Util.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Cryptography.Csp">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Security.Cryptography.Csp.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Resources.Writer">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Resources.Writer.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Cryptography.Primitives">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Security.Cryptography.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.Thread">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Threading.Thread.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.JsonRpc.Client">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.JsonRpc.Client.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.InteropServices.RuntimeInformation">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Cryptography.Encoding">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Security.Cryptography.Encoding.dll</HintPath>
+ </Reference>
+ <Reference Include="netstandard">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/netstandard.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.NameResolution">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Net.NameResolution.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Cryptography.X509Certificates">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Security.Cryptography.X509Certificates.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.Contracts">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Diagnostics.Contracts.dll</HintPath>
  </Reference>
  <Reference Include="Sirenix.Serialization">
  <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Sirenix/Assemblies/Sirenix.Serialization.dll</HintPath>
  </Reference>
- <Reference Include="Sirenix.Utilities.Editor">
- <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Sirenix/Assemblies/Sirenix.Utilities.Editor.dll</HintPath>
+ <Reference Include="System.Runtime">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.Model">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.Model.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.TextWriterTraceListener">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Diagnostics.TextWriterTraceListener.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ComponentModel.Primitives">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.ComponentModel.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.MemoryMappedFiles">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.IO.MemoryMappedFiles.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Text.Encoding">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Text.Encoding.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Resources.Reader">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Resources.Reader.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Collections">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Collections.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Resources.ResourceManager">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Resources.ResourceManager.dll</HintPath>
+ </Reference>
+ <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Linq.Parallel">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Linq.Parallel.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.Process">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Diagnostics.Process.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.XPath">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Xml.XPath.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization.Json">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Runtime.Serialization.Json.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.InteropServices">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Runtime.InteropServices.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Globalization.Calendars">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Globalization.Calendars.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Security">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Net.Security.dll</HintPath>
+ </Reference>
+ <Reference Include="Common.Logging.Core">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Common.Logging.Core.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Reactive">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Reactive.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.ReaderWriter">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Xml.ReaderWriter.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Collections.Concurrent">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Collections.Concurrent.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.WebSockets.Client">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Net.WebSockets.Client.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization.Formatters">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Runtime.Serialization.Formatters.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Reflection.Primitives">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Reflection.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Console">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Console.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Linq.Expressions">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Linq.Expressions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.FileSystem.DriveInfo">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.IO.FileSystem.DriveInfo.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ComponentModel">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.ComponentModel.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Buffers">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Buffers.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Primitives">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Net.Primitives.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.XDocument">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Xml.XDocument.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Linq">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Linq.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.ABI">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.ABI.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.Tools">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Diagnostics.Tools.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Library/PackageCache/com.unity.nuget.newtonsoft-json@2.0.0/Runtime/Newtonsoft.Json.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.JsonRpc.IpcClient">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.JsonRpc.IpcClient.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.ThreadPool">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Threading.ThreadPool.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.Compression.ZipFile">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.IO.Compression.ZipFile.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Collections.NonGeneric">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Collections.NonGeneric.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Globalization.Extensions">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Globalization.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.Geth">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.Geth.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.WebHeaderCollection">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Net.WebHeaderCollection.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Diagnostics.Tracing">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Diagnostics.Tracing.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.RLP">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.RLP.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Security.Cryptography.Algorithms">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Security.Cryptography.Algorithms.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.JsonRpc.RpcClient">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.JsonRpc.RpcClient.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.XPath.XDocument">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Xml.XPath.XDocument.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.Accounts">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.Accounts.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.Quorum">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.Quorum.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.Compression">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.IO.Compression.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.Signer">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.Signer.dll</HintPath>
+ </Reference>
+ <Reference Include="Sirenix.OdinInspector.Editor">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Sirenix/Assemblies/Sirenix.OdinInspector.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.StandardTokenEIP20">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.StandardTokenEIP20.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Xml.XmlDocument">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Xml.XmlDocument.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Serialization.Xml">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Runtime.Serialization.Xml.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.Timer">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Threading.Timer.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.Tasks.Extensions">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Threading.Tasks.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.IO.UnmanagedMemoryStream">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.IO.UnmanagedMemoryStream.dll</HintPath>
+ </Reference>
+ <Reference Include="System.ComponentModel.TypeConverter">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.ComponentModel.TypeConverter.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Data.Common">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Data.Common.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Reflection.Extensions">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Reflection.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.WebSockets">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Net.WebSockets.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.RPC">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.RPC.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Threading.Tasks.Parallel">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Threading.Tasks.Parallel.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.Web3">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.Web3.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Runtime.Extensions">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Runtime.Extensions.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Linq.Queryable">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Linq.Queryable.dll</HintPath>
+ </Reference>
+ <Reference Include="Nethereum.Unity">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/Nethereum.Unity.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.NetworkInformation">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Net.NetworkInformation.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Net.Sockets">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Plugins/Nethereum/net461dllsAOT/System.Net.Sockets.dll</HintPath>
+ </Reference>
+ <Reference Include="websocket-sharp">
+ <HintPath>C:/Users/Drake/source/repos/Enjin-Unity-sample/Enjin Test Project/Assets/Enjin/Plugins/websocket-sharp.dll</HintPath>
  </Reference>
  <Reference Include="netstandard">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.22f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
