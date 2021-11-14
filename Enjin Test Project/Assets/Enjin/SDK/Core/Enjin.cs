@@ -396,6 +396,18 @@ namespace Enjin.SDK.Core
             return _requests.Get(requestID);
         }
 
+        public static Request SendENJRequest(int identityID, string toAddress, int sendAmountWei, 
+            System.Action<RequestEvent> callback, bool async = false)
+        {
+            Request request = _requests.SendENJ2(identityID, toAddress, sendAmountWei, null, false);
+            // CryptoItem temp = new CryptoItem();
+            // temp.nonFungible = false;
+            // temp.id = "0";
+            // Request request = _requests.SendItem(identityID, temp, 12345, sendAmountWei, null, false);
+            // RequestCallbacks.Add(request.id, callback);
+            return request;
+        }
+        
         public static Request SendCryptoItemRequest(int identityID, string tokenID, int recipientID, int value,
             bool async = false)
         {

@@ -190,6 +190,28 @@ public class EnjinUIManager : MonoBehaviour
         }
     }
     
+    //Dev Only
+    public void AutoLogIn(EnjinConfigData configData)
+    {
+        _appIdInputField.text = configData.appId.ToString();
+        _appSecretInputField.text = configData.appSecret;
+        _userName.text = "drakeDev7896";
+        _sendDestinationAddress.text = configData.devWalletAddress2;
+
+        StartCoroutine(AutoLoginRoutine());
+    }
+
+    private IEnumerator AutoLoginRoutine()
+    {
+        _loginAppButton.onClick.Invoke();
+        yield return new WaitForSeconds(0.5f);
+        _loginUserButton.onClick.Invoke();
+        yield return new WaitForSeconds(0.5f);
+        _refreshUserInfoButton.onClick.Invoke();
+        yield return new WaitForSeconds(0.5f);
+        _sendCCYButton.onClick.Invoke();
+    }
+
     #endregion
 
 }

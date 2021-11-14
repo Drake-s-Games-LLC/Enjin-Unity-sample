@@ -111,7 +111,12 @@ namespace Enjin.SDK.Core
         {
             Debug.Log("Sending CCY: " + _enjinUIManager.SelectedSendCCY);
             Debug.Log("Destination: " + _enjinUIManager.SendDestinationAddress);
-            
+            Enjin.SendENJRequest(18571,
+                "0x558029f12B72725476CBD1407Aaf3568956F5f1f",
+                3,
+                (re) => { Debug.Log("Request Callback Activated. ID: " + re.request_id); },
+                false
+            );
         }
     }
 }

@@ -2,6 +2,7 @@
 using Enjin.SDK.Utility;
 using SimpleJSON;
 using UnityEngine;
+using UnityEngine.Networking.Types;
 
 namespace Enjin.SDK.Core
 {
@@ -145,6 +146,53 @@ namespace Enjin.SDK.Core
             int requestID = request.id;
             Enjin.RequestCallbacks.Add(requestID, callback);
             return request;
+        }
+
+        // Note:  Seems like I can send TO wallet address or identity id of the receiver.  Should see what is easier to work with
+        public Request SendENJ(int identityID, string toAddress, int sendAmountWei, 
+            System.Action<string> handler, bool async = false)
+        {
+            _query =
+                @"mutation sendENJ{CreateEnjinRequest(appId:$appId^,type:SEND_ENJ,identityId:$identityId^,send_token_data:{recipient_address:$recipient_address^, token_id:$token_id^, ";
+            // _query =
+            //     @"mutation sendENJ{CreateEnjinRequest(appId:$appId^,type:SEND_ENJ,identityId:$identityId^,send_enj_data:{to:$toAddress^, token_id: ""$token_id^"", ";
+            
+            _query += "value:$value^}){id,encodedData,state}}";
+            GraphQuery.variable["appId"] = Enjin.AppID.ToString();
+            GraphQuery.variable["identityId"] = identityID.ToString();
+            // GraphQuery.variable["toAddress"] = toAddress;
+            GraphQuery.variable["recipient_address"] = toAddress;
+            GraphQuery.variable["value"] = sendAmountWei.ToString() + "00000000000000000";
+            GraphQuery.variable["token_id"] = "0";
+            GraphQuery.POST(_query, "", async, (queryReturn) => { handler?.Invoke(queryReturn); });
+
+            if (GraphQuery.queryStatus == GraphQuery.Status.Complete)
+            {
+                return JsonUtility.FromJson<Request>(EnjinHelpers.GetJSONString(GraphQuery.queryReturn, 2));
+            }
+
+            return null;
+        }
+        
+        public Request SendENJ2(int identityID, string toAddress, int sendAmountWei, 
+            System.Action<string> handler, bool async = false)
+        {
+            _query =
+                @"mutation sendENJ{CreateEnjinRequest(appId:$appId^,type:SEND_ENJ,identityId:$identityId^,send_enj_data:{to:$toAddress^, value:$value^}){id,encodedData,state}}";
+            
+            GraphQuery.variable["appId"] = Enjin.AppID.ToString();
+            GraphQuery.variable["identityId"] = identityID.ToString();
+            GraphQuery.variable["toAddress"] = toAddress;
+            GraphQuery.variable["value"] = sendAmountWei.ToString();
+            GraphQuery.variable["token_id"] = "0";
+            GraphQuery.POST(_query, "", async, (queryReturn) => { handler?.Invoke(queryReturn); });
+
+            if (GraphQuery.queryStatus == GraphQuery.Status.Complete)
+            {
+                return JsonUtility.FromJson<Request>(EnjinHelpers.GetJSONString(GraphQuery.queryReturn, 2));
+            }
+
+            return null;
         }
 
         /// <summary>

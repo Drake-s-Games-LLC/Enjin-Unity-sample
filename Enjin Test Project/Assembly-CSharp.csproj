@@ -72,6 +72,7 @@
      <Compile Include="Assets\Enjin\SDK\DataTypes\EnjinInterfaces.cs" />
      <Compile Include="Assets\Enjin\SDK\Utility\EnjinHelpers.cs" />
      <Compile Include="Assets\Enjin\SDK\Core\EnjinCryptoItems.cs" />
+     <Compile Include="Assets\Scripts\DrakesGames\UIUtility\UIPanelStateController.cs" />
      <Compile Include="Assets\Enjin\SDK\Core\EnjinRequests.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\EventEmitter.cs" />
      <Compile Include="Assets\Enjin\SDK\Core\Enjin.cs" />
@@ -90,7 +91,9 @@
      <Compile Include="Assets\Enjin\SDK\PusherClient\PusherException.cs" />
      <Compile Include="Assets\EnjinWallet.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\Channel.cs" />
-     <Compile Include="Assets\Scripts\DrakesGames\UIUtility\UIPanelStateController.cs" />
+     <Compile Include="Assets\Scripts\DrakesGames\ConfigFileUtility\ConfigJSONReader.cs" />
+     <Compile Include="Assets\Scripts\DrakesGames\ConfigFileUtility\EnjinConfigData.cs" />
+     <Compile Include="Assets\Scripts\DrakesGames\DevUtilities.cs" />
      <None Include="Assets\Enjin\Resources\Templates\IdentityTemplate.txt" />
      <None Include="Assets\Enjin\Resources\Templates\UserTemplate.txt" />
      <None Include="Assets\Enjin\Third-Party Notices.txt" />

@@ -80,6 +80,7 @@ namespace Enjin.SDK.GraphQL
 
             Query query = new Query {query = details};
             jsonData = JsonUtility.ToJson(query);
+            Debug.Log("FINAL QUERY JSON: " + jsonData.ToString());
 
             if (Enjin.SDK.Core.Enjin.IsDebugLogActive)
             {
