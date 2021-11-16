@@ -59,13 +59,10 @@
      <Compile Include="Assets\Enjin\SDK\PusherClient\PusherOptions.cs" />
      <Compile Include="Assets\Enjin\SDK\Core\EnjinPlatform.cs" />
      <Compile Include="Assets\Enjin\SDK\Core\EnjinIdentities.cs" />
-     <Compile Include="Assets\graphQl-client\Scripts\Extensions\UnityWebRequestExtensions.cs" />
-     <Compile Include="Assets\graphQl-client\Scripts\EventCallbacks\Event.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\Pusher.cs" />
      <Compile Include="Assets\Enjin\SDK\Core\EnjinUsers.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\ErrorCodes.cs" />
      <Compile Include="Assets\PlatformSelector.cs" />
-     <Compile Include="Assets\graphQl-client\Demo\Pokemon\Pokemon.cs" />
      <Compile Include="Assets\Enjin\SDK\Core\EnjinEventManager.cs" />
      <Compile Include="Assets\Scripts\DrakesGames\DevUtilities.cs" />
      <Compile Include="Assets\Enjin\SDK\GraphQL\GraphQuery.cs" />
@@ -77,7 +74,6 @@
      <Compile Include="Assets\Enjin\SDK\Utility\EnjinHelpers.cs" />
      <Compile Include="Assets\Scripts\DrakesGames\ConfigFileUtility\EnjinConfigData.cs" />
      <Compile Include="Assets\Enjin\SDK\Core\EnjinCryptoItems.cs" />
-     <Compile Include="Assets\graphQl-client\Scripts\EventCallbacks\AllEventInfo.cs" />
      <Compile Include="Assets\Scripts\DrakesGames\UIUtility\UIPanelStateController.cs" />
      <Compile Include="Assets\Enjin\SDK\Core\EnjinRequests.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\EventEmitter.cs" />
@@ -85,14 +81,11 @@
      <Compile Include="Assets\Enjin\SDK\Core\EnjinClasses.cs" />
      <Compile Include="Assets\EnjinUIManager.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\Connection.cs" />
-     <Compile Include="Assets\graphQl-client\Demo\Users\User.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\PusherSettings.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\Helper\DataFactoryHelper.cs" />
      <Compile Include="Assets\Enjin\SDK\DataTypes\EnjinUserClasses.cs" />
-     <Compile Include="Assets\graphQl-client\Scripts\Core\Introspection.cs" />
      <Compile Include="Assets\Enjin\SDK\Template\GraphQLTemplate.cs" />
      <Compile Include="Assets\EnjinManager.cs" />
-     <Compile Include="Assets\graphQl-client\Scripts\Core\GraphApi.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\Helper\JsonHelper.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\ChannelTypes.cs" />
      <Compile Include="Assets\Scripts\DrakesGames\ConfigFileUtility\ConfigJSONReader.cs" />
@@ -101,7 +94,6 @@
      <Compile Include="Assets\Enjin\SDK\PusherClient\PusherException.cs" />
      <Compile Include="Assets\EnjinWallet.cs" />
      <Compile Include="Assets\Enjin\SDK\PusherClient\Channel.cs" />
-     <Compile Include="Assets\graphQl-client\Scripts\Core\HttpHandler.cs" />
      <None Include="Assets\Enjin\Resources\Templates\IdentityTemplate.txt" />
      <None Include="Assets\Enjin\Resources\Templates\UserTemplate.txt" />
      <None Include="Assets\Enjin\Third-Party Notices.txt" />
@@ -1106,6 +1098,10 @@
  </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{b03815d2-d6a3-65bd-cbc2-e519bbdd5b6f}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
     <ProjectReference Include="Sirenix.OdinInspector.CompatibilityLayer.csproj">
       <Project>{a994a17a-a1f1-3215-fe1d-b66e78c04b94}</Project>
       <Name>Sirenix.OdinInspector.CompatibilityLayer</Name>
