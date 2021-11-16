@@ -48,10 +48,10 @@ namespace Enjin.SDK.Core
 
             //Enjin.StartPlatformWithToken(PLATFORM_URL, APP_ID, ACCESS_TOKEN);
 
-            EnjinUser admin = Enjin.GetUser(DEVELOPER_USERNAME);
+            User admin = Enjin.GetUser(DEVELOPER_USERNAME);
             DEVELOPER_ACCESS_TOKEN = Enjin.AccessToken;
 
-            EnjinUser player = Enjin.GetUser(PLAYER_ID);
+            User player = Enjin.GetUser(PLAYER_ID);
 
             if (player == null)
             {

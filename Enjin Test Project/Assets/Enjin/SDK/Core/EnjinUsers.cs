@@ -12,12 +12,12 @@ namespace Enjin.SDK.Core
         /// </summary>
         /// <param name="name">User's username</param>
         /// <returns>Created user object</returns>
-        public EnjinUser Create(string name)
+        public User Create(string name)
         {
             GraphQuery.POST(string.Format(Enjin.UserTemplate.GetQuery["CreateUser"], name));
 
             if (Enjin.ServerResponse == ResponseCodes.SUCCESS)
-                return JsonUtility.FromJson<EnjinUser>(EnjinHelpers.GetJSONString(GraphQuery.queryReturn, 2));
+                return JsonUtility.FromJson<User>(EnjinHelpers.GetJSONString(GraphQuery.queryReturn, 2));
 
             return null;
         }
@@ -27,10 +27,10 @@ namespace Enjin.SDK.Core
         /// </summary>
         /// <param name="userID">ID of user to get</param>
         /// <returns>Specified User</returns>
-        public EnjinUser Get(int id)
+        public User Get(int id)
         {
             GraphQuery.POST(string.Format(Enjin.UserTemplate.GetQuery["GetUserForId"], id.ToString()));
-            return JsonUtility.FromJson<EnjinUser>(EnjinHelpers.GetJSONString(GraphQuery.queryReturn, 2));
+            return JsonUtility.FromJson<User>(EnjinHelpers.GetJSONString(GraphQuery.queryReturn, 2));
         }
         
         /// <summary>
@@ -38,16 +38,16 @@ namespace Enjin.SDK.Core
         /// </summary>
         /// <param name="userID">ID of user to get</param>
         /// <returns>Specified User</returns>
-        public EnjinUser Get(string name)
+        public User Get(string name)
         {
             GraphQuery.POST(string.Format(Enjin.UserTemplate.GetQuery["GetUserForName"], name));
-            return JsonUtility.FromJson<EnjinUser>(EnjinHelpers.GetJSONString(GraphQuery.queryReturn, 2));
+            return JsonUtility.FromJson<User>(EnjinHelpers.GetJSONString(GraphQuery.queryReturn, 2));
         }
 
-        public EnjinUser GetCurrentUser()
+        public User GetCurrentUser()
         {
             GraphQuery.POST(Enjin.UserTemplate.GetQuery["GetCurrentUser"]);
-            return JsonUtility.FromJson<EnjinUser>(EnjinHelpers.GetJSONString(GraphQuery.queryReturn, 2));
+            return JsonUtility.FromJson<User>(EnjinHelpers.GetJSONString(GraphQuery.queryReturn, 2));
         }
     }
 }

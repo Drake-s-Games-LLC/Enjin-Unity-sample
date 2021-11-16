@@ -14,7 +14,7 @@ namespace Enjin.SDK.Core
     {
         [SerializeField] private EnjinUIManager _enjinUIManager;
 
-        public EnjinUser _currentEnjinUser = null;
+        public User _currentEnjinUser = null;
         bool _isConnecting = false;
         string _accessToken = null;
 
