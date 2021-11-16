@@ -103,7 +103,7 @@ public class EnjinUIManager : MonoBehaviour
     #endregion
     
     #region UI Panel Control
-    public void UpdateUserUIInfo(User enjinUser)
+    public void UpdateUserUIInfo(EnjinUser enjinUser)
     {
         if (enjinUser == null)
         {
@@ -219,8 +219,8 @@ public class EnjinUIManager : MonoBehaviour
         _loginUserButton.onClick.Invoke();
         yield return new WaitForSeconds(0.5f);
         _refreshUserInfoButton.onClick.Invoke();
-        // yield return new WaitForSeconds(0.5f);
-        // _sendCCYButton.onClick.Invoke();
+        yield return new WaitForSeconds(0.5f);
+        _sendCCYButton.onClick.Invoke();
     }
 
     private void CheckEnableSendButton()

@@ -567,22 +567,22 @@ namespace Enjin.SDK.Core
 
         #region User Methods
 
-        public static User CreatePlayer(string name)
+        public static EnjinUser CreatePlayer(string name)
         {
             return _users.Create(name);
         }
 
-        public static User GetUser(int id)
+        public static EnjinUser GetUser(int id)
         {
             return _users.Get(id);
         }
         
-        public static User GetUser(string name)
+        public static EnjinUser GetUser(string name)
         {
             return _users.Get(name);
         }
 
-        public static User GetCurrentUser()
+        public static EnjinUser GetCurrentUser()
         {
             return _users.GetCurrentUser();
         }

@@ -179,15 +179,16 @@ namespace Enjin.SDK.Core
             
             string _query = @"query getEnjinUserInfo($userName: String!){EnjinUser(name: $userName){name,id}}";
             //string variables = @"""userName"": """ + userName + @"""";
-            // QueryHelperClass helperClass = new QueryHelperClass(_query, variables);
-            SDictionaryStringString vars = new SDictionaryStringString();
-            vars.Add("userName", userName);
+            
+            // DrakeQuery drakeQuery = new DrakeQuery();
+            // drakeQuery.query = _query;
+            // drakeQuery.varDictionary.Add("userName", userName);
+            // drakeQuery.varDictionary.Add("variable2", "variableValue2");
+            //vars.VariableDictionary.Add("variable3", @"v\ari/able""Va!lue""3");
 
             string jsonData = "";
-            
-            DrakeQuery query = new DrakeQuery {query = _query, variables = vars};
-            
-            jsonData = JsonUtility.ToJson(query);
+
+            //jsonData = JsonUtility.ToJson(drakeQuery);
             
             Debug.Log("JSON DATA: " + jsonData.ToString());
             
@@ -200,18 +201,6 @@ namespace Enjin.SDK.Core
             }
 
             return null;
-        }
-
-        [Serializable]
-        public class DrakeQuery
-        {
-            public string query;
-            public SDictionaryStringString variables;
-        }
-
-        [Serializable]
-        public class SDictionaryStringString : SerializableDictionary<string, string>
-        {
         }
 
         /// <summary>

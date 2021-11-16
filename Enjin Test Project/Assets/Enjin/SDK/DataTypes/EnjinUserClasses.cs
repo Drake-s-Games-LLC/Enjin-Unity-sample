@@ -7,7 +7,7 @@ namespace Enjin.SDK.DataTypes
     /// User data structure that contains account info and links to user identity
     /// </summary>
     [Serializable]
-    public class User
+    public class EnjinUser
     {
         public int id; // Account ID
         public string name; // Username of account
@@ -19,7 +19,7 @@ namespace Enjin.SDK.DataTypes
         /// <summary>
         /// Constructor
         /// </summary>
-        public User()
+        public EnjinUser()
         {
             id = -1;
             name = string.Empty;
